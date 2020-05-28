@@ -20,6 +20,15 @@ Vector Vector::operator*(const float scalar) const
 	return Vector(scalar * x, scalar * y, scalar * z);
 }
 
+Vector Vector::operator-(const Vector& vector) const
+{
+	Vector result = vector * (-1);
+	result.x = x + result.x;
+	result.y = y + result.y;
+	result.z = z + result.z;
+	return result;
+}
+
 void Vector::Print()
 {
 	printf("(%f, %f, %f)\n", x, y, z);
@@ -39,4 +48,27 @@ float Vector::LengthSq() const
 float Vector::Length() const
 {
 	return std::sqrt(LengthSq());
+}
+
+Vector Vector::Normalized() const
+{
+	return *this * (1.0f / Length());
+}
+
+Vector Vector::Cross(const Vector& vector) const
+{
+	Vector result;
+	result.x = y * vector.z - z * vector.y;
+	result.y = z * vector.x - x * vector.z;
+	result.z = x * vector.y - y * vector.x;
+	return result;
+}
+
+float Vector::Angle(const Vector& vector) const
+{
+	const float dot = Dot(vector);
+	const float len1 = Length();
+	const float len2 = vector.Length();
+	float result = (acos(dot / (len1 * len2))) * (180/(atan(1)*4));
+	return result;
 }

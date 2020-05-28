@@ -12,10 +12,14 @@ public:
 	{
 		return Vector(scalar * vector.x, scalar * vector.y, scalar * vector.z);
 	}
+	Vector operator-(const Vector& vector) const;
 	void Print();
 	float Dot(const Vector& vector) const;
 	float LengthSq() const;
 	float Length() const;
+	Vector Normalized() const;
+	Vector Cross(const Vector& vector) const;
+	float Angle(const Vector& vector) const;
 private:
 	float x;
 	float y;
